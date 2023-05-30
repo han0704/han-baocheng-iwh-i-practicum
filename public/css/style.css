@@ -10,6 +10,10 @@ h1 {
     margin: 1rem;
 }
 
+a {
+    margin: 0.6rem;
+}
+
 .cards {
     display: flex;
     align-items: center;
@@ -51,10 +55,20 @@ input[type="text"] {
 }
 
 input[type="submit"] {
-    background-color: lightgrey;
+    background-color: lightblue;
     border: none;
     padding: .375rem 1rem;
     margin-top: 10px;
+    cursor: pointer;
+    box-shadow: 3px 5px 4px #888888;
+}
+
+input[type="submit"]:active {
+    transform: translate(1px, 1px);
+}
+
+table {
+    margin: 1rem;
 }
 
 table tr {
