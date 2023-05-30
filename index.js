@@ -28,7 +28,7 @@ app.get("/", async (req, res) => {
       const data = resp.data.results;
       res.render("home", { title: "Home | HubSpot APIs", data });
     } catch (error) {
-      console.log(PRIVATE_APP_ACCESS)
+      // console.log(PRIVATE_APP_ACCESS)
       console.error(error);
     }
   });
@@ -44,52 +44,29 @@ app.get("/update-cobj", (req, res) => {
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
-// * Code for Route 3 goes here
+app.post("/update-cobj", async (req, res) => {
+    const url = `https://api.hubapi.com/crm/v3/objects/2-15312185`;
 
-/** 
-* * This is sample code to give you a reference for how you should structure your calls. 
-
-* * App.get sample
-app.get('/contacts', async (req, res) => {
-    const contacts = 'https://api.hubspot.com/crm/v3/objects/contacts';
     const headers = {
-        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-        'Content-Type': 'application/json'
-    }
-    try {
-        const resp = await axios.get(contacts, { headers });
-        const data = resp.data.results;
-        res.render('contacts', { title: 'Contacts | HubSpot APIs', data });      
-    } catch (error) {
-        console.error(error);
-    }
-});
-
-* * App.post sample
-app.post('/update', async (req, res) => {
-    const update = {
-        properties: {
-            "favorite_book": req.body.newVal
-        }
-    }
-
-    const email = req.query.email;
-    const updateContact = `https://api.hubapi.com/crm/v3/objects/contacts/${email}?idProperty=email`;
-    const headers = {
-        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-        'Content-Type': 'application/json'
+      Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+      "Content-Type": "application/json",
     };
 
-    try { 
-        await axios.patch(updateContact, update, { headers } );
-        res.redirect('back');
-    } catch(err) {
-        console.error(err);
+    const data = {
+      properties: {
+        name: req.body.name,
+        address: req.body.address,
+        favriates: req.body.favriates,
+      },
+    };
+    
+    try {
+      await axios.post(url, data, { headers });
+      res.redirect("/");
+    } catch (err) {
+      console.error(err);
     }
-
-});
-*/
-
+  });
 
 // * Localhost
 app.listen(3000, () => console.log('Listening on http://localhost:3000'));
